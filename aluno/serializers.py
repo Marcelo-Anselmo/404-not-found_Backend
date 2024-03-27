@@ -17,8 +17,14 @@ class AlunoSerializer(serializers.ModelSerializer):
             "created_at",
             "professor",
         ]
-        read_only_fields = ["id", "created_at", "professor"]
-        depth = 1
+        read_only_fields = ["id", "created_at"]
+        depth = 0
+
+    # Remover o campo professor da resposta da requisição
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        data.pop("professor", None)
+        return data
 
     def create(self, validated_data: dict) -> Alunos:
         aluno = Alunos.objects.create(**validated_data)

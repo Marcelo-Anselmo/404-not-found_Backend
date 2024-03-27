@@ -16,8 +16,9 @@ class ProfessorSerializer(serializers.ModelSerializer):
             "is_active",
             "created_at",
             "descricao",
+            "alunos",
         ]
-        read_only_fields = ["id", "created_at", "is_active"]
+        read_only_fields = ["id", "created_at", "is_active", "alunos"]
         depth = 1
 
     def create(self, validated_data: dict) -> Professor:
