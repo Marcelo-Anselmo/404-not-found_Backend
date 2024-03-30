@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import Professor
 from django.utils import timezone
+from datetime import datetime
 
 
 class ProfessorSerializer(serializers.ModelSerializer):
@@ -20,7 +21,7 @@ class ProfessorSerializer(serializers.ModelSerializer):
             "descricao",
             "alunos",
         ]
-        read_only_fields = ["id", "created_at", "is_active", "alunos"]
+        read_only_fields = ["id", "created_at", "is_active"]
         depth = 1
 
     def format_date_america(self, instance):
@@ -29,6 +30,19 @@ class ProfessorSerializer(serializers.ModelSerializer):
             timezone.get_current_timezone()
         ).strftime("%d/%m/%Y %H:%M:%S")
         return data
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        for aluno_data in representation["alunos"]:
+
+            if isinstance(aluno_data["created_at"], str):
+                aluno_data["created_at"] = datetime.strptime(
+                    aluno_data["created_at"], "%Y-%m-%dT%H:%M:%S.%f%z"
+                )
+            aluno_data["created_at"] = aluno_data["created_at"].strftime(
+                "%d/%m/%Y %H:%M:%S"
+            )
+        return representation
 
     def create(self, validated_data: dict) -> Professor:
         professor = Professor.objects.create(**validated_data)
