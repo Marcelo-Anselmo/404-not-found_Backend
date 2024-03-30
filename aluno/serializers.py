@@ -29,8 +29,12 @@ class AlunoSerializer(serializers.ModelSerializer):
         ).strftime("%d/%m/%Y %H:%M:%S")
         return data
 
-    def remove_teacher_field(self, instance):
+    def to_representation(self, instance):
         data = super().to_representation(instance)
+        data = self.remove_teacher_field(data)
+        return data
+
+    def remove_teacher_field(self, data):
         data.pop("professor", None)
         return data
 
