@@ -39,6 +39,9 @@ def created_pdf(professor, alunos):
     arquivo_pdf.drawString(280, 730, "Aula: ")
     arquivo_pdf.drawString(310, 730, str(data_professor.aula))
 
+    arquivo_pdf.drawString(380, 730, "Turno:")
+    arquivo_pdf.drawString(420, 730, data_professor.turno)
+
     arquivo_pdf.drawString(60, 700, "Descrição: ")
     arquivo_pdf.drawString(120, 700, data_professor.descricao)
 

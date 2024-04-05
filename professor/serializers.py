@@ -16,6 +16,7 @@ class ProfessorSerializer(serializers.ModelSerializer):
             "email",
             "disciplina",
             "aula",
+            "turno",
             "is_active",
             "created_at",
             "descricao",
