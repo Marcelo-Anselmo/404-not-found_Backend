@@ -10,7 +10,6 @@ from rest_framework.generics import (
 from send_email import created_pdf
 from rest_framework.exceptions import APIException
 from rest_framework import status
-from django.shortcuts import get_object_or_404
 
 
 class GetProfessor(APIException):
