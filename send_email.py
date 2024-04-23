@@ -88,13 +88,13 @@ def created_pdf(professor, alunos):
 
     def send_email(professor):
         corpo_email = """
-        <p>Obrigado por usar no sistema de ata online!</p>
+        <p>Obrigado por usar no sistema de Autentica Ulife!</p>
         <p>Segue em anexo a ata em pdf</p>
         """
 
         msg = MIMEMultipart()
         msg["Subject"] = (
-            f"Ata Online/Disciplina: {professor.disciplina}/Data: {str(formatar_data_brasileira(professor.created_at))}"
+            f"Lista de Presença/Disciplina: {professor.disciplina}/Data: {str(formatar_data_brasileira(professor.created_at))}"
         )
         msg["From"] = "group.404.error.not.found@gmail.com"
         msg["To"] = professor.email
