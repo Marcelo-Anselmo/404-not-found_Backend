@@ -88,10 +88,10 @@ WSGI_APPLICATION = "ata_online.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.getenv("POSTGRES_DB"),
-        "USER": os.getenv("POSTGRES_USER"),
-        "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
-        "HOST": "LOCALHOST",
+        "NAME": "ata_oline",
+        "USER": "admin",
+        "PASSWORD": "9KGAeNueJ2dZDHk0Wi1Nk85jTV6WIQdf",
+        "HOST": "dpg-coju7763e1ms73bj4g00-a.oregon-postgres.render.com",
         "POST": 5432,
     }
 }
