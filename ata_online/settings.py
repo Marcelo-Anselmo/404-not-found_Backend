@@ -34,6 +34,9 @@ SECRET_KEY = "404"
 DEBUG = False
 
 ALLOWED_HOSTS = []
+RENDER_EXTERNAL_HOSTNAME = os.getenv("RENDER_EXTERNAL_HOSTNAME")
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS += [RENDER_EXTERNAL_HOSTNAME, "0.0.0.0"]
 
 
 # Application definition
@@ -135,7 +138,7 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 
-DATABASE_URL = "postgresql://postgres:postgres@localhost:5432/ata_oline"
+DATABASE_URL = os.getenv("DATABASE_URL")
 
 if DATABASE_URL:
     db_from_env = dj_database_url.config(
