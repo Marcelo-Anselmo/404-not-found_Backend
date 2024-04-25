@@ -68,7 +68,6 @@ MIDDLEWARE = [
 
 CORS_ALLOWED_ORIGINS = [
     "https://vercel.app",
-    "https://404-not-found-front-end.vercel.app/",
     "http://localhost:5173",
     "http://localhost:8000",
 ]
