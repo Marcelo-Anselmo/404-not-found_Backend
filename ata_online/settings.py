@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 import os
 import dotenv
+import dj_database_url
 
 
 dotenv.load_dotenv()
@@ -27,12 +28,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 # SECRET_KEY = "django-insecure-$9xkv6w)8az*)8a56f+9jnuw@zn=30tn$n3_d34f0xz4xvlqx#"
 
-SECRET_KEY = os.getenv("SECRET_KEY")
+SECRET_KEY = "404"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
 ALLOWED_HOSTS = []
+RENDER_EXTERNAL_HOSTNAME = os.getenv("RENDER_EXTERNAL_HOSTNAME")
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS += [RENDER_EXTERNAL_HOSTNAME, "0.0.0.0"]
 
 
 # Application definition
@@ -48,10 +52,12 @@ INSTALLED_APPS = [
     "aluno",
     "rest_framework",
     "corsheaders",
+    "drf_spectacular",
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -60,6 +66,13 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "corsheaders.middleware.CorsMiddleware",
 ]
+
+CORS_ALLOW_ALL_ORIGINS = True
+# CORS_ALLOWED_ORIGINS = [
+#     "https://vercel.app",
+#     "http://localhost:5173",
+#     "http://localhost:8000",
+# ]
 
 ROOT_URLCONF = "ata_online.urls"
 
@@ -88,10 +101,10 @@ WSGI_APPLICATION = "ata_online.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.getenv("POSTGRES_DB"),
-        "USER": os.getenv("POSTGRES_USER"),
-        "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
-        "HOST": "LOCALHOST",
+        "NAME": "ata_oline",
+        "USER": "admin",
+        "PASSWORD": "9KGAeNueJ2dZDHk0Wi1Nk85jTV6WIQdf",
+        "HOST": "dpg-coju7763e1ms73bj4g00-a.oregon-postgres.render.com",
         "PORT": 5432,
     }
 }
@@ -127,11 +140,39 @@ USE_I18N = True
 
 USE_TZ = True
 
+REST_FRAMEWORK = {
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Autentica Ulife (Grupo 404 not found!)",
+    "DESCRIPTION": "Uma API para realizar lista de presença online",
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": True,
+}
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = "static/"
+
+DATABASE_URL = os.getenv("DATABASE_URL")
+
+if DATABASE_URL:
+    db_from_env = dj_database_url.config(
+        default=DATABASE_URL, conn_max_age=600, ssl_require=True
+    )
+    DATABASES["default"].update(db_from_env)
+    DEBUG = False
+
+    if not DEBUG:
+        # Tell Django to copy statics to the `staticfiles` directory
+        # in your application directory on Render.
+        STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+
+        # Turn on WhiteNoise storage backend that takes care of compressing static files
+        # and creating unique names for each version so they can safely be cached forever.
+        STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
@@ -139,7 +180,3 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",
-]
