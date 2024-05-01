@@ -11,6 +11,10 @@ from rest_framework import status
 from django.shortcuts import get_object_or_404
 
 
+class GetAluno(APIException):
+    status_code = status.HTTP_400_BAD_REQUEST
+
+
 class GetProfessor(APIException):
     status_code = status.HTTP_400_BAD_REQUEST
 
@@ -25,9 +29,16 @@ class AlunosView(CreateAPIView):
         professor_found = Professor.objects.filter(id=self.kwargs.get("professor_id"))
 
         if not professor_found:
-            raise GetProfessor("The professor does not exist")
+            raise GetProfessor("O ID do professor não existe")
 
         professor = get_object_or_404(Professor, id=self.kwargs.get("professor_id"))
+
+        alunos = list(professor.alunos.values())
+        request = self.request.data
+
+        for aluno in alunos:
+            if request["RA"] == aluno["RA"]:
+                raise GetAluno("Aluno ja registrado!")
 
         serializer.save(professor=professor)
 

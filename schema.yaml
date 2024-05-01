@@ -1,0 +1,530 @@
+openapi: 3.0.3
+info:
+  title: Autentica Ulife (Grupo 404 not found!)
+  version: 1.0.0
+  description: Uma API para realizar lista de presença online
+paths:
+  /api/aluno/:
+    get:
+      operationId: api_aluno_list
+      tags:
+      - api
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Aluno'
+          description: ''
+  /api/aluno/{professor_id}/:
+    post:
+      operationId: api_aluno_create
+      parameters:
+      - in: path
+        name: professor_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Aluno'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Aluno'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Aluno'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Aluno'
+          description: ''
+  /api/alunoID/{aluno_id}/:
+    get:
+      operationId: api_alunoID_retrieve
+      parameters:
+      - in: path
+        name: aluno_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - api
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Aluno'
+          description: ''
+    put:
+      operationId: api_alunoID_update
+      parameters:
+      - in: path
+        name: aluno_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Aluno'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Aluno'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Aluno'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Aluno'
+          description: ''
+    patch:
+      operationId: api_alunoID_partial_update
+      parameters:
+      - in: path
+        name: aluno_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedAluno'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedAluno'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedAluno'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Aluno'
+          description: ''
+    delete:
+      operationId: api_alunoID_destroy
+      parameters:
+      - in: path
+        name: aluno_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - api
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/listprofessor/:
+    get:
+      operationId: api_listprofessor_list
+      tags:
+      - api
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Professor'
+          description: ''
+  /api/professor/:
+    post:
+      operationId: api_professor_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Professor'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Professor'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Professor'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Professor'
+          description: ''
+  /api/professor/{professor_id}/:
+    get:
+      operationId: api_professor_retrieve
+      parameters:
+      - in: path
+        name: professor_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - api
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Professor'
+          description: ''
+    put:
+      operationId: api_professor_update
+      parameters:
+      - in: path
+        name: professor_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Professor'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Professor'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Professor'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Professor'
+          description: ''
+    patch:
+      operationId: api_professor_partial_update
+      parameters:
+      - in: path
+        name: professor_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedProfessor'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedProfessor'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedProfessor'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Professor'
+          description: ''
+    delete:
+      operationId: api_professor_destroy
+      parameters:
+      - in: path
+        name: professor_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - api
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/send_email/{professor_id}/:
+    get:
+      operationId: api_send_email_retrieve
+      parameters:
+      - in: path
+        name: professor_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - api
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Professor'
+          description: ''
+components:
+  schemas:
+    Aluno:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        nome:
+          type: string
+          maxLength: 60
+        curso:
+          type: string
+          maxLength: 100
+        RA:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        professor:
+          allOf:
+          - $ref: '#/components/schemas/Professor'
+          readOnly: true
+      required:
+      - RA
+      - created_at
+      - curso
+      - id
+      - nome
+      - professor
+    Nested:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        nome:
+          type: string
+          maxLength: 60
+        curso:
+          type: string
+          maxLength: 100
+        RA:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        professor:
+          type: string
+          format: uuid
+      required:
+      - RA
+      - created_at
+      - curso
+      - id
+      - nome
+      - professor
+    PatchedAluno:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        nome:
+          type: string
+          maxLength: 60
+        curso:
+          type: string
+          maxLength: 100
+        RA:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        professor:
+          allOf:
+          - $ref: '#/components/schemas/Professor'
+          readOnly: true
+    PatchedProfessor:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        nome:
+          type: string
+          maxLength: 60
+        email:
+          type: string
+          maxLength: 200
+        disciplina:
+          type: string
+          maxLength: 100
+        aula:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        turno:
+          type: string
+          maxLength: 60
+        is_active:
+          type: boolean
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        descricao:
+          type: string
+          nullable: true
+          maxLength: 200
+        alunos:
+          type: array
+          items:
+            $ref: '#/components/schemas/Nested'
+          readOnly: true
+    Professor:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        nome:
+          type: string
+          maxLength: 60
+        email:
+          type: string
+          maxLength: 200
+        disciplina:
+          type: string
+          maxLength: 100
+        aula:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        turno:
+          type: string
+          maxLength: 60
+        is_active:
+          type: boolean
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        descricao:
+          type: string
+          nullable: true
+          maxLength: 200
+        alunos:
+          type: array
+          items:
+            $ref: '#/components/schemas/Nested'
+          readOnly: true
+      required:
+      - alunos
+      - aula
+      - created_at
+      - disciplina
+      - email
+      - id
+      - is_active
+      - nome
+      - turno
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid
